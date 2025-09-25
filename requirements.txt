@@ -1,22 +1,18 @@
-# K-Beauty MCP Server Dependencies
+# K-Beauty Remote MCP Server Dependencies
 
-# 기존 로컬 MCP 의존성
+# 핵심 MCP 의존성
 mcp>=1.0.0
-asyncio
-typing
-datetime
-logging
 
-# 리모트 MCP HTTP 서버 의존성
+# FastAPI 웹 서버 의존성
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 pydantic>=2.5.0
 python-multipart>=0.0.6
 
-# 선택적 의존성 (OAuth, 보안 등)
+# 보안 및 인증 (선택적)
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.4
 python-decouple>=3.8
 
-# 배포용 의존성
+# 배포용 (선택적)
 gunicorn>=21.2.0
