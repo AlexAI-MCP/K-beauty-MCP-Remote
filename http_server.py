@@ -449,5 +449,8 @@ async def mcp_sse_endpoint(request: Request):
     )
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Google Cloud Run에서 PORT 환경변수 사용
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port)

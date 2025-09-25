@@ -1,0 +1,72 @@
+# .gcloudignore - Cloud Run 배포 시 제외할 파일들
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+README.md
+DEPLOY.md
+
+# Docker (로컬 빌드용)
+docker-compose.yml
+
+# Railway (다른 플랫폼용)
+railway.json
+nixpacks.toml
+
+# 백업 및 임시 파일
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# 로그 파일
+*.log
+logs/
+
+# 테스트 파일
+tests/
+pytest.ini
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 로컬 개발용
+.env.local
+.env.development

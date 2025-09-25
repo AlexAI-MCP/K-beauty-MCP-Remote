@@ -1,4 +1,8 @@
-# 최소 의존성으로 Railway 배포 최적화
-fastapi>=0.100.0
+# Google Cloud Run 최적화 의존성
+fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
-pydantic>=2.0.0
+pydantic>=2.5.0
+python-multipart>=0.0.6
+
+# Cloud Run 성능 최적화
+gunicorn>=21.2.0

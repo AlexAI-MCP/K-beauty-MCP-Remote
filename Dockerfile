@@ -1,36 +1,26 @@
-# Dockerfile for K-Beauty Remote MCP Server
+# Google Cloud Run용 Dockerfile
 FROM python:3.11-slim
 
-# 작업 디렉토리 설정
-WORKDIR /app
+# 환경 변수 설정
+ENV PYTHONUNBUFFERED=True
+ENV APP_HOME=/app
+WORKDIR $APP_HOME
 
-# 시스템 의존성 설치
+# 시스템 의존성 업데이트
 RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Python 의존성 파일 복사 및 설치
+# Python 의존성 먼저 복사하고 설치 (캐시 최적화)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-# 앱 파일들 복사
-COPY server.py .
-COPY http_server.py .
-COPY README.md .
-COPY PHOTO_ANALYSIS_GUIDE.md .
+# 애플리케이션 코드 복사
+COPY . .
 
-# 환경 변수 설정
-ENV PORT=8000
-ENV HOST=0.0.0.0
-ENV PYTHONPATH=/app
+# Cloud Run은 PORT 환경 변수를 자동으로 설정함
+# 포트 8080이 기본값이지만 $PORT를 사용하는 것이 권장됨
+EXPOSE 8080
 
-# 포트 노출
-EXPOSE 8000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
-
-# 앱 실행
-CMD ["uvicorn", "http_server:app", "--host", "0.0.0.0", "--port", "8000"]
+# FastAPI 애플리케이션 실행
+# Cloud Run에서 제공하는 PORT 환경변수 사용
+CMD uvicorn http_server:app --host 0.0.0.0 --port $PORT
